@@ -33,11 +33,7 @@ void inputIntegersAndPrintSum(){
 }
 
 // 1 e)
-void answerStringToD(){
-    string answer;
-    answer = "Jeg valgte aa bruke inputInteger fordi den retunerer verdien";
-    cout << answer << endl;
-}
+// Jeg valgte å bruke inputInteger fordi den retunerer verdien.
 
 // 1 f)
 bool isOdd(int x){
@@ -99,10 +95,8 @@ void readUnknownNumbersAndDoSum(){
 }
 
 // 2 c)
-void answerString2C(){
-    string answer = "i oppg a med spesifikk antall er for loop best, og i oppg b med ukjent antall er while loop best";
-    cout << answer << endl;
-}
+// i oppg a) med spesifikk antall iterasjoner er for loop best, og i oppg b) med ukjent antall iterasjoner er while loop best
+
 
 // 2 d)
 double inputDouble(){
@@ -135,10 +129,8 @@ double NOKToEURO(){
 }
 
 // 2 f)
-void answerStringTo2F(){
-    string answer = "fordi kroner er flytall så har derfro mer valgmulighet, i tilegg ganges det med et flytall";
-    cout << answer << endl;
-}
+// jeg bør bruke inputDouble fremfor inputInteger 
+// fordi kroner er flytall så har man derfor mer valgmulighet, i tilegg ganges det med et flytall
 
 // 2 g)
 void productTable(){
