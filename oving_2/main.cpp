@@ -220,23 +220,46 @@ void solveQuadraticEquation(){
 // opgpave 4
 
 
-Point calculateKatetpoints(Point a, Point b, Point  c){
-    
-}
-
-
 void makePythagoras(){
     AnimationWindow win{100, 100, 500, 500, "Pytagoras"};
 
+    // main triangle
+    // top point
     Point point1{200, 150};
+
+    // bottom left point 300
     Point point2{200, 300};
+
+    // bottom right point
     Point point3{300, 300};
+    
+    win.draw_triangle(point1, point2, point3, Color::black);
+    // main triangle end
 
+    // left kvadrant
+    int leftKvadrantLenght = abs(point2.y - point1.y);
+    Point leftKvadrant_leftUpper = {point1.x - leftKvadrantLenght, point1.y};
+    Point leftKvadrant_leftBottom = {point2.x - leftKvadrantLenght, point2.y};
 
-    win.draw_triangle(point1, point2, point3, Color::red);
+    win.draw_quad(point1, leftKvadrant_leftUpper, leftKvadrant_leftBottom, point2, Color::green);
+    // left kvadrant end
 
+    // bottom kvadrant
+    int bottomKvadrantLenght = abs(point3.x - point2.x);
+    //cout << bottomKvadrantLenght << endl;
+    Point bootomKvadrant_bottomLeft = {point2.x, point2.y + bottomKvadrantLenght};
+    Point bottomKvadrant_bottomRight = {point3.x, point3.y + bottomKvadrantLenght};
+    
+    win.draw_quad(point2, bootomKvadrant_bottomLeft, bottomKvadrant_bottomRight, point3, Color::red);
+    // bootom kvadrant end
 
+    // hypotenuse
+    Point hypotenuse_TopRight = {point1.x + leftKvadrantLenght, point1.y - bottomKvadrantLenght};
+    Point hytenuse_bottomLeft = {point3.x + leftKvadrantLenght, point3.y - bottomKvadrantLenght};
 
+    win.draw_quad(point3, hytenuse_bottomLeft, hypotenuse_TopRight, point1, Color::blue);
+    // hypotenuse end
+ 
     win.wait_for_close();
 
 }
@@ -246,7 +269,7 @@ void makePythagoras(){
 // oppgave 5
 
 // 5 a)
-vector<int> calculateBalanse(int startCapital, int intrest, int years){
+vector<int> calculateBalanse(int startCapital, int intrest, unsigned int years){
 
     vector<int> saldo(years);
     
@@ -271,6 +294,15 @@ void printBalance(vector<int> saldo){
 }
 
 
+// 5 c)
+// kan ikke skrive ut en vektor på grunn den inneholder mange element og ingen har laget en funksjon for hvordan
+// cout skal håndtere det. man må skrive ut hvert element i feks en for loop slik som gjort i print balance
+
+
+// 5 d)
+// feilen i koden likker i leddet (i <= v.size()) og kommer av at vi prøver å sammenlikne to variabler av ulik datatype
+// i er av typen int og v.size() er unsigned long long
+
 
 
 int main() {
@@ -284,86 +316,90 @@ int main() {
     int timeInSeconds;
 
 
-    // while (active)
-    // {
-    //     // menu text
-    //     cout << "velg funksjon:" << endl;
-    //     cout << "0) Avslutt " << endl;
-    //     cout << "1) Skriv inn heltall som printes ut" << endl;
-    //     cout << "2) skriv inn heltall som retuneres" << endl;
-    //     cout << "3) sum av to heltall" << endl;
-    //     cout << "4) er tallet oddetall? fra 0 til 15" << endl;
-    //     cout << "5) Sekunder om til timer, minutter og sekunder" << endl;
-    //     cout << "6) gangetabell" << endl;
-    //     cout << "7) abc- formel solver" << endl;
+    while (active)
+    {
+        // menu text
+        cout << "velg funksjon:" << endl;
+        cout << "0) Avslutt " << endl;
+        cout << "1) Skriv inn heltall som printes ut" << endl;
+        cout << "2) skriv inn heltall som retuneres" << endl;
+        cout << "3) sum av to heltall" << endl;
+        cout << "4) er tallet oddetall? fra 0 til 15" << endl;
+        cout << "5) Sekunder om til timer, minutter og sekunder" << endl;
+        cout << "6) gangetabell" << endl;
+        cout << "7) abc- formel solver" << endl;
+        cout << "8) tegn pyhtagoras" << endl;
+        cout << "9) renters rente effekt" << endl;
 
-    //     cout << "Angi valg (0-9): ";
-    //     cin >> choosePage;
+        cout << "Angi valg (0-9): ";
+        cin >> choosePage;
         
-    //     // sepreate printout from menu
-    //     cout << " " << endl;
-    //     cout << "--------------" << endl;
-    //     cout << " " << endl;
+        // sepreate printout from menu
+        cout << " " << endl;
+        cout << "--------------" << endl;
+        cout << " " << endl;
 
-    //     // page chooser
-        
-
-    //     switch (choosePage)
-    //     {
-    //         case 0:
-    //             active = 0;
-    //             break;
+        // page chooser
+        switch (choosePage)
+        {
+            case 0:
+                active = 0;
+                break;
             
-    //         case 1:
-    //             inputAndPrintInteger();
-    //             break;
+            case 1:
+                inputAndPrintInteger();
+                break;
             
-    //         case 2:
-    //             heltall1C = inputInteger();
-    //             cout << "du skrev: " << heltall1C << endl;
-    //             break;
+            case 2:
+                heltall1C = inputInteger();
+                cout << "du skrev: " << heltall1C << endl;
+                break;
             
-    //         case 3:
-    //             inputIntegersAndPrintSum();
-    //             break;
+            case 3:
+                inputIntegersAndPrintSum();
+                break;
 
-    //         case 4:
-    //             for (int i = 0; i < 15; i++){
-    //                     if (isOdd(i)) {
-    //                         cout << i << " true" << endl;
-    //                     } else {
-    //                         cout << i << " false" << endl;
-    //                 }
+            case 4:
+                for (int i = 0; i < 15; i++){
+                        if (isOdd(i)) {
+                            cout << i << " true" << endl;
+                        } else {
+                            cout << i << " false" << endl;
+                    }
 
-    //             }
-    //             break;
+                }
+                break;
             
-    //         case 5:
-    //             timeInSeconds = inputInteger();
-    //             printHumanReadableTime(timeInSeconds);
-    //             break;
+            case 5:
+                timeInSeconds = inputInteger();
+                printHumanReadableTime(timeInSeconds);
+                break;
 
-    //         case 6:
-    //             productTable();
-    //             break;
+            case 6:
+                productTable();
+                break;
 
-    //         case 7:
-    //             solveQuadraticEquation();
-    //             break;
+            case 7:
+                solveQuadraticEquation();
+                break;
+
+            case 8:
+                makePythagoras();
+                break;
             
-    //         default:
-    //             break;
+            case 9:
+                printBalance(calculateBalanse(5000, 5, 10)); // can make the user plot in input here if desired.
+                break;
+                
+            default:
+                cout << "Unvalid input" << endl;
+                break;
 
-    //     }
-    //     cout << " " << endl;
-    //     cout << "--------------" << endl;
-    //     cout << " " << endl;
-    // }
-
-    makePythagoras();
-
-    // vector<int> saldo = calculateBalanse(5000, 5,10);
-    // printBalance(saldo);
+        }
+        cout << " " << endl;
+        cout << "--------------" << endl;
+        cout << " " << endl;
+    }
     
 
     // exit program
