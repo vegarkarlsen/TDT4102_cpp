@@ -1,3 +1,4 @@
-**/subprojects/
-**/.vscode/
+**/subprojects
+**/.vscode
 **/meson.build
+**/builddir
