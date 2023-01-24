@@ -53,3 +53,12 @@ double getDistanceTraveled(double velocityX, double velocityY);
 double targetPractice(double distanceToTarget, double velocityX, double velocityY);
 
 // --------------------------------
+
+
+// oppgave 5
+// --------------------------------
+
+// 5 d)
+void playTargetPractice();
+
+// --------------------------------

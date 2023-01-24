@@ -4,13 +4,17 @@
 
 // oppgave 5 
 // --------------------------
-// 5 b)
+// 5 b) and c
 int randomWithLimits(int min, int max){
-    std::default_random_engine generator;
-    int number = generator();
-    std::cout << number;
+
+    random_device rd;
+    default_random_engine generator(rd());
+    uniform_int_distribution<int> dist(min, max);
+
+    int number = dist(generator);
+    //cout << number << endl;
+
+    return number;
 }
-
-
 
 // --------------------------
