@@ -4,32 +4,44 @@
 
 
 
+int checkCharacterAndPosition(string guess, string code, int size){
+    int rightPos = 0;
 
-
-
-int checkCharacterAndPosition(string guess, int letters){
-    int nRight = 0;
-    char currentToCheck;
-    char checkAgainst;
-    for (int i = 0; i < letters; i++) {
-        currentToCheck = guess[i];
-        checkAgainst = 'a' + (i - 1);
-
-        if (currentToCheck == checkAgainst) {
-            nRight++;
-        }
+    for (int i = 0; i < size; i++){
+        if (guess[i] == code[i]) rightPos++;
     }
-    return nRight;
+
+    return rightPos;
+}
+
+int checkCharacter(string guess, string code, int letters){
+
+    int currentCountCode = 0;
+    int currentCountGuess = 0;
+    char currentChar;
+    int totalCharactersRight = 0;
+
+    for (int i = 0; i < letters; i++){
+        currentChar = 'a' + i;
+        currentCountCode = countChar(code, currentChar);
+        currentCountGuess = countChar(guess, currentChar);
+
+        // guess < code => n guess is right
+        if (currentCountCode >= currentCountGuess){
+            totalCharactersRight += currentCountGuess;
+        }
+        // guess > code => n code is right
+        else totalCharactersRight += currentCountCode;
+    }
+
+    return totalCharactersRight;
 
 }
 
-int checkCharacter(string guess, int letters){
-    
-}
 
 
 
-void playMastermind(){
+void playMastermind(int tries){
 
     constexpr int size = 4;
     constexpr int letters = 6;
@@ -38,23 +50,38 @@ void playMastermind(){
     string guess;
 
     bool running = 1;
+    int iterations = 0;
     char maxChar = 'a' + (letters - 1);
 
     int rightPos = 0;
     int rightCharWrongPos = 0;
 
-    code = randomizeString(letters, 'a', maxChar);
+
+    code = randomizeString(size, 'a', maxChar);
+    cout << code << endl;
 
     while (running){
-        guess = readInputToString('a', maxChar, letters);
+        guess = readInputToString('a', maxChar, size);
+        cout << endl;
 
-        rightPos = checkCharacterAndPosition(guess, letters);
+        rightCharWrongPos = checkCharacter(guess, code, letters);
+        cout << "Right characters: " << rightCharWrongPos << endl;
 
+        rightPos = checkCharacterAndPosition(guess, code, size);
+        cout << "Right characters on right position : "<< rightPos << endl;
 
-
-
-
+        // if rightPos == size you win 
+        if (rightPos == size) {
+            cout << "you won!" << endl;
+            running = 0; 
+            break;
+        }
+        else if (iterations >= tries){
+            cout << "times up, you lose" << endl;
+            running = 0;
+            break;
+        }
+        iterations++;
     }
-
 
 }

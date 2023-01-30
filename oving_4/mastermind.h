@@ -5,6 +5,7 @@
 #include "utilities.h"
 
 
-void playMastermind();
+void playMastermind(int tries);
 
-// void checkCharacterAndPosition();
+// void checkCharacterAndPosition(); spør om dette.
+

@@ -96,7 +96,8 @@ int main(){
     // int numberOfA = countChar(test, 'a');
     // cout << "n: " << numberOfA << endl;
 
-    testString();
+    // testString();
+    playMastermind(8);
 
     return 0;
 

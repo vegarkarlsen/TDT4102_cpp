@@ -90,7 +90,7 @@ string readInputToString(char minChar, char maxChar, int n){
 
     cout << "input a string with only characters between " << minChar 
         << " and " << maxChar 
-        << "and minium lenght of " << n << endl;
+        << " and minium lenght of " << n << endl;
 
     cout << "String: ";
 
