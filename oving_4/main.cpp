@@ -2,6 +2,8 @@
 #include "std_lib_facilities.h"
 #include "tests.h"
 #include "utilities.h"
+#include "mastermind.h"
+
 // opgpave 1
 // -------------------------------------------
 
@@ -67,13 +69,34 @@ void testMenu(){
 
 
 
+/*
+oppgave 2 e)
+
+Feilen ser ut til å komme av at utilites.h blir importert to ganger. 
+dette kan løses ved å bruke #pragma once i utilites.h, eller 
+#ifndef UTILITES_H
+#define UTILITES_H
+
+Code
+
+#endif
+ */
+
 
 
 int main(){
 
     // testMenu();
 
-    testStudent();
+    // testStudent();
+
+    // string test = readInputToString('a', 'c', 10);
+    // cout << test << endl;
+
+    // int numberOfA = countChar(test, 'a');
+    // cout << "n: " << numberOfA << endl;
+
+    testString();
 
     return 0;
 

@@ -29,3 +29,15 @@ void printStudent(Student student);
 // c
 bool isInProgram(Student stud, string studyProgram);
 
+
+// opgpave 3
+// b
+string randomizeString(int numCharacters, char minCharacter, char maxCharacter);
+
+// d
+string readInputToString(char minChar, char maxChar, int n);
+
+// e
+int countChar(string str, char c);
+
+// f

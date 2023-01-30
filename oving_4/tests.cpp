@@ -63,6 +63,30 @@ void testStudent(){
 
     check = isInProgram(stud, "Robotics");
     cout << "isInProgram(stud, 'Robotics'): " << check << endl;
-    
-
 }
+
+void testString(){
+    string grades = randomizeString(8, 'a', 'f');
+    cout << grades << endl;
+
+    // there are 6 numbers from a-f
+    vector<int> gradeCount(6);
+    char charToCount;
+    double runningTotal = 0;
+
+    // count characters
+    for (int i = 0; i < gradeCount.size(); i++){
+        // count
+        charToCount = char(i + 'a');
+
+        cout << charToCount << " ";
+        gradeCount.at(i) = countChar(grades, charToCount);
+        cout << gradeCount.at(i) << endl;
+
+        // iteration wrong way:
+        runningTotal += (5 - i)* gradeCount.at(i);
+    }
+
+    cout << "average = " << runningTotal/8 << endl;
+}
+
