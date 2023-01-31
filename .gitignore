@@ -2,3 +2,5 @@
 **/.vscode
 **/meson.build
 **/builddir
+**/handin.zip
+
