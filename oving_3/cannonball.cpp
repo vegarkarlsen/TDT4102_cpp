@@ -2,7 +2,6 @@
 #include "std_lib_facilities.h"
 #include "cannonball.h"
 #include "utilities.h"
-#include "cannonball_viz.h"
 
 // oppgave 2
 // --------------------------------
