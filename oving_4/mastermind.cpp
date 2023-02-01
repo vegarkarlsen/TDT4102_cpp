@@ -38,10 +38,8 @@ int checkCharacter(string guess, string code, int letters){
 
 }
 
-
-
-
 void playMastermind(int tries){
+
 
     constexpr int size = 4;
     constexpr int letters = 6;
@@ -85,3 +83,4 @@ void playMastermind(int tries){
     }
 
 }
+

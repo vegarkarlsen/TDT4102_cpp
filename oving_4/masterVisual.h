@@ -5,8 +5,8 @@
 
 using namespace TDT4102;
 
-constexpr int winW = 0; // velg vindu bredde
-constexpr int winH = 0; // velg vindu hoyde
+constexpr int winW = 500; // velg vindu bredde
+constexpr int winH = 500; // velg vindu hoyde
 
 constexpr int padY = winH / 1;      // velg x skalering
 constexpr int padX = winW / 1;      // velg y skalering
@@ -61,3 +61,11 @@ private:
 
 void addGuess(MastermindWindow &mwin, const std::string code, const char startLetter);
 void addFeedback(MastermindWindow &mwin, const int correctPosition, const int correctCharacter);
+
+void playMastermindVisual(int tries);
+
+int checkCharacterAndPosition(string guess, string code, int size);
+
+int checkCharacter(string guess, string code, int letters);
+
+

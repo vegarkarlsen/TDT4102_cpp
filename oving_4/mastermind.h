@@ -7,5 +7,10 @@
 
 void playMastermind(int tries);
 
-// void checkCharacterAndPosition(); spør om dette.
+int checkCharacterAndPosition(string guess, string code, int size);
+
+int checkCharacter(string guess, string code, int letters);
+
+
+
 
