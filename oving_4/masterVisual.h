@@ -8,9 +8,9 @@ using namespace TDT4102;
 constexpr int winW = 500; // velg vindu bredde
 constexpr int winH = 500; // velg vindu hoyde
 
-constexpr int padY = winH / 1;      // velg x skalering
-constexpr int padX = winW / 1;      // velg y skalering
-constexpr int radCircle = padX / 1; // velg sirkel radius
+constexpr int padY = winH / (2*8+1);      // velg x skalering
+constexpr int padX = winW / (2*5+1);      // velg y skalering
+constexpr int radCircle = padX / 8; // velg sirkel radius
 
 constexpr int btnW = padX;          //velg knapp bredde basert på padX
 constexpr int btnH = padY;          //velg knapp høyde basert på padY
@@ -62,10 +62,8 @@ private:
 void addGuess(MastermindWindow &mwin, const std::string code, const char startLetter);
 void addFeedback(MastermindWindow &mwin, const int correctPosition, const int correctCharacter);
 
-void playMastermindVisual(int tries);
 
-int checkCharacterAndPosition(string guess, string code, int size);
+// Oppgave 5
+//----------------------------------------------------------------
 
-int checkCharacter(string guess, string code, int letters);
-
-
+void playMastermindViusal(int tries);

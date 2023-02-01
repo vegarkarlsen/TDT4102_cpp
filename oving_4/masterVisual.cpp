@@ -1,6 +1,6 @@
 #include "masterVisual.h"
 #include "std_lib_facilities.h"
-#include "utilities.h"
+#include "mastermind.h"
 
 std::map<int, Color> colorConverter{
     {1, Color::red},
@@ -14,6 +14,7 @@ std::map<int, Color> colorConverter{
 void addGuess(MastermindWindow &mwin, const std::string code, const char startLetter)
 {
 	// definer addGuess
+	mwin.guesses.push_back({code, startLetter});
 }
 
 void addFeedback(MastermindWindow &mwin, const int correctPosition, const int correctCharacter)
@@ -41,13 +42,21 @@ size(size)
 
 string MastermindWindow::wait_for_guess()
 {
+
+	int xPos = (winW-(2*padX))/4;
+	int scaleX = xPos;
+	int yPos = (winH-(2*padY)/6);
+	int scaleY = yPos;
+
 	while (!button_pressed && !should_close())
 	{
 		for(int guessIndex = 0; guessIndex < static_cast<int>(guesses.size()); guessIndex++) {
 			//Implementer gjett slik at det vises fargede rektangler i grafikkvinduet
 			{
                 // Tegn rektangler ved bruk av draw_rectangle(). Bruk: colorConverter.at() for å få riktig farge
-
+				draw_rectangle(Point{xPos, yPos}, padX, padY, colorConverter.at(guessIndex));
+				
+				
 			}
 		}
 
@@ -112,41 +121,14 @@ void MastermindWindow::setCodeHidden(bool hidden) {
 }
 
 
-int checkCharacterAndPosition(string guess, string code, int size){
-    int rightPos = 0;
+// Oppgave 5
+//----------------------------------------------------------------
 
-    for (int i = 0; i < size; i++){
-        if (guess[i] == code[i]) rightPos++;
-    }
 
-    return rightPos;
-}
 
-int checkCharacter(string guess, string code, int letters){
 
-    int currentCountCode = 0;
-    int currentCountGuess = 0;
-    char currentChar;
-    int totalCharactersRight = 0;
 
-    for (int i = 0; i < letters; i++){
-        currentChar = 'a' + i;
-        currentCountCode = countChar(code, currentChar);
-        currentCountGuess = countChar(guess, currentChar);
-
-        // guess < code => n guess is right
-        if (currentCountCode >= currentCountGuess){
-            totalCharactersRight += currentCountGuess;
-        }
-        // guess > code => n code is right
-        else totalCharactersRight += currentCountCode;
-    }
-
-    return totalCharactersRight;
-
-}
-
-void playMastermindVisual(int tries){
+void playMastermindViusal(int tries){
 
 
     constexpr int size = 4;
@@ -156,41 +138,19 @@ void playMastermindVisual(int tries){
     string guess;
 
     bool running = 1;
-    int iterations = 0;
     char maxChar = 'a' + (letters - 1);
 
     int rightPos = 0;
     int rightCharWrongPos = 0;
 
-
     code = randomizeString(size, 'a', maxChar);
-    cout << code << endl; // for easier debuging
+    cout << code << endl;
 
-    MastermindWindow mwin{800, 20, winW, winH, size, "Mastermind"};
-
-    while (running){
-        guess =  mwin.getInput(size, 'a', maxChar);
-        cout << endl;
-
-        rightCharWrongPos = checkCharacter(guess, code, letters);
-        cout << "Right characters: " << rightCharWrongPos << endl;
-
-        rightPos = checkCharacterAndPosition(guess, code, size);
-        cout << "Right characters on right position : "<< rightPos << endl;
-
-        // if rightPos == size you win 
-        if (rightPos == size) {
-            cout << "you won!" << endl;
-            running = 0; 
-            break;
-        }
-        else if (iterations >= tries){
-            cout << "times up, you lose" << endl;
-            running = 0;
-            break;
-        }
-        iterations++;
-    }
+	MastermindWindow mwin{800, 40, winW, winH, size, "Mastermind"};
+	
+	
 
 }
+
+
 

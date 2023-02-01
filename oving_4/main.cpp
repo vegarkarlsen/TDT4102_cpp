@@ -2,6 +2,7 @@
 #include "std_lib_facilities.h"
 #include "tests.h"
 #include "utilities.h"
+#include "masterVisual.h"
 #include "mastermind.h"
 
 // opgpave 1
@@ -97,8 +98,9 @@ int main(){
     // cout << "n: " << numberOfA << endl;
 
     // testString();
-    playMastermind(8);
-
+    playMastermindViusal(8);
+    
+    
     return 0;
 
 }
