@@ -98,7 +98,7 @@ int main(){
     // cout << "n: " << numberOfA << endl;
 
     // testString();
-    playMastermindViusal(8);
+    playMastermindViusal(6);
     
     
     return 0;

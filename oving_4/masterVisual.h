@@ -5,12 +5,12 @@
 
 using namespace TDT4102;
 
-constexpr int winW = 500; // velg vindu bredde
-constexpr int winH = 500; // velg vindu hoyde
+constexpr int winW = 600; // velg vindu bredde
+constexpr int winH = 800; // velg vindu hoyde
 
-constexpr int padY = winH / (2*8+1);      // velg x skalering
-constexpr int padX = winW / (2*5+1);      // velg y skalering
-constexpr int radCircle = padX / 8; // velg sirkel radius
+constexpr int padY = winH / (2*6+1);      // velg x skalering
+constexpr int padX = winW / (2*4+1);      // velg y skalering
+constexpr int radCircle = padX / 12; // velg sirkel radius
 
 constexpr int btnW = padX;          //velg knapp bredde basert på padX
 constexpr int btnH = padY;          //velg knapp høyde basert på padY
@@ -66,4 +66,4 @@ void addFeedback(MastermindWindow &mwin, const int correctPosition, const int co
 // Oppgave 5
 //----------------------------------------------------------------
 
-void playMastermindViusal(int tries);
+void playMastermindViusal(const int rounds);

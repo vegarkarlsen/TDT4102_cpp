@@ -14,12 +14,15 @@ std::map<int, Color> colorConverter{
 void addGuess(MastermindWindow &mwin, const std::string code, const char startLetter)
 {
 	// definer addGuess
-	mwin.guesses.push_back({code, startLetter});
+    Guess g{code, startLetter};
+	mwin.guesses.push_back(g);
 }
 
 void addFeedback(MastermindWindow &mwin, const int correctPosition, const int correctCharacter)
 {
 	// definer addFeedback
+    Feedback f{correctPosition, correctCharacter};
+    mwin.feedbacks.push_back(f);
 }
 
 void MastermindWindow::drawCodeHider()
@@ -43,35 +46,89 @@ size(size)
 string MastermindWindow::wait_for_guess()
 {
 
-	int xPos = (winW-(2*padX))/4;
-	int scaleX = xPos;
-	int yPos = (winH-(2*padY)/6);
-	int scaleY = yPos;
+    int roundNr = static_cast<int>(guesses.size());
+    // int roundNr = 1;
+
+    // pos y is based on round nr (the size of guesses gives roundnr)
+    // int yPos = padY + (padY * roundNr);
+    // startvariables:
+    int yPos = 4 * padY; 
+    int xPos = padX;
+    
+    string currentGuess;
+    int colorIndex;
 
 	while (!button_pressed && !should_close())
 	{
-		for(int guessIndex = 0; guessIndex < static_cast<int>(guesses.size()); guessIndex++) {
+		for(int guessIndex = 0; guessIndex < roundNr; guessIndex++) {
 			//Implementer gjett slik at det vises fargede rektangler i grafikkvinduet
 			{
                 // Tegn rektangler ved bruk av draw_rectangle(). Bruk: colorConverter.at() for å få riktig farge
-				draw_rectangle(Point{xPos, yPos}, padX, padY, colorConverter.at(guessIndex));
-				
+
+                currentGuess = guesses.at(guessIndex).code;
+                // cout << "guess from drawing nr " << guessIndex << " " << currentGuess << endl;
+                
+                // position y TODO: change size between rows
+                yPos = padY*2 + (padY * guessIndex  * 2);
+
+                // draw trough x-direction for each guessIndex
+                int xRectNr = static_cast<int>(currentGuess.length());
+                for (int i = 0; i < xRectNr; i++){
+                    
+                    // (startChar + 1) - currentChar 
+                    colorIndex = static_cast<int>(currentGuess.at(i) - 'a' + 1);
+
+                    // position x TODO: change size between columns
+                    xPos = (padX * i * 2) + 10;
+
+                    // cout << "drawing " 
+                    //     << "(x,y): " << xPos << ", " << yPos 
+                    //     << " colorIndex: " << colorIndex << endl;
+
+                    draw_rectangle(Point{xPos, yPos}, padX, padY, colorConverter.at(colorIndex));
+
+                }
 				
 			}
 		}
-
+        int circleX = (padX * 4 * 2) + 10;
+        int circleY = padY*2;
 		for(int feedbackIndex = 0; feedbackIndex < static_cast<int>(feedbacks.size()); feedbackIndex++) {
 			// Implementer feedback
+            // svart: korrekt bosktav med korrekt posisjon
+            // hvit: korrekt bokstav uavhengig av pos
 
-			for (int i = 0; i < size; i++)
+            int rightPos = feedbacks.at(feedbackIndex).correctPosition;
+
+            // - rightPos because this has higher priority
+            int rightCharacter = feedbacks.at(feedbackIndex).correctCharacter - rightPos;
+
+            //increment ypos
+            circleY = padY*2 + padY/2 + (padY * feedbackIndex  * 2);
+            int startCircleX = ((padX * 4 * 2 - padX/2));
+
+            // black
+			for (int i = 0; i < rightPos; i++)
 			{
 				// Tegn sirkler ved hjelp av draw_circle
-				
+                // draw_circle(Point{circleX, circleY}, radius, color, colorBorder);
+                circleX = startCircleX + i*(radCircle+10);
+
+                draw_circle(Point{circleX, circleY}, radCircle, Color::black, Color::black);
+
 			}
+            // white
+            for (int i = 0; i < rightCharacter; i++){
+
+                circleX = startCircleX + (i + rightPos)*(radCircle+10);
+                
+                draw_circle(Point{circleX, circleY}, radCircle, Color::white, Color::black);
+            }
+
 		}
 
 		// Burde tegnes sist siden den skal ligge på toppen
-		drawCodeHider();
+		// drawCodeHider();
 
 		next_frame();
 	}
@@ -91,25 +148,39 @@ string MastermindWindow::getInput(unsigned int n, char lower, char upper)
 	{
 		guess.clear();
 		string input = wait_for_guess();
+        // cout << "input to check: " << input << endl;
 		if (input.size() == n)
 		{
 			for (unsigned int i = 0; i < n; i++)
 			{
 				char ch = input.at(i);
-				if (isalpha(ch) && toupper(ch) <= upper && lower <= toupper(ch))
+                // debug
+                // cout << "checing char: " << ch << endl;
+                // cout << "isalpha: " << isalpha(ch) << endl;
+                // cout << "<= upper: " << (toupper(ch) <= toupper(upper)) << endl;
+                // cout << ">= lower: " << (toupper(lower) <= toupper(ch)) << endl;
+
+				if (isalpha(ch) && toupper(ch) <= toupper(upper) && toupper(lower) <= toupper(ch))
 				{
-					guess += toupper(ch);
+					guess += tolower(ch);
+                    // cout << "is good" << endl;
+                    continue;
 				}
-				else
+				else{
+                    // cout << "failed!" << endl;
 					break;
+                }
+                    
 			}
 		}
 		if (guess.size() == n)
 		{
 			validInput = true;
+            // cout << "input got through test, and is valid" << endl;
 		}
 		else
 		{
+            // cout << "guess.size(): " << guess.size() << endl;
 			cout << "Invalid input guess again" << endl;
 		}
 	}
@@ -125,10 +196,7 @@ void MastermindWindow::setCodeHidden(bool hidden) {
 //----------------------------------------------------------------
 
 
-
-
-
-void playMastermindViusal(int tries){
+void playMastermindViusal(const int rounds){
 
 
     constexpr int size = 4;
@@ -137,18 +205,49 @@ void playMastermindViusal(int tries){
     string code;
     string guess;
 
-    bool running = 1;
-    char maxChar = 'a' + (letters - 1);
+    bool victory = 0;
+    char startChar = 'a';
+    char maxChar = startChar + (letters - 1);
 
     int rightPos = 0;
     int rightCharWrongPos = 0;
 
-    code = randomizeString(size, 'a', maxChar);
-    cout << code << endl;
+    code = randomizeString(size, startChar, maxChar);
+    cout << "The code is: "<< code << endl;
 
 	MastermindWindow mwin{800, 40, winW, winH, size, "Mastermind"};
-	
-	
+
+    for (int i = 0; i < rounds + 1; i++){
+        
+        guess = mwin.getInput(size, startChar, maxChar);
+        // cout << "guess from main: " << guess << endl;
+        addGuess(mwin, guess, startChar);
+
+        rightCharWrongPos = checkCharacter(guess, code, letters);
+        rightPos = checkCharacterAndPosition(guess, code, size);
+
+        // cout << "Right characters: " << rightCharWrongPos << endl;
+        // cout << "Right characters on right position : "<< rightPos << endl;
+
+        addFeedback(mwin, rightPos, rightCharWrongPos);
+
+        // if rightPos == size you win 
+        if (rightPos == size) {
+            cout << "you won!" << endl;
+            victory = 1; 
+            break;
+        }
+
+        // // debug, printing guesses vector.
+        // cout << "stored guesses: " << endl;
+        // for (int i = 0; i < static_cast<int>(mwin.guesses.size()); i++){
+        //     cout << mwin.guesses.at(i).code << endl;
+        // }
+
+
+
+    }
+    if (!victory) cout << "you lose!" << endl;
 
 }
 
