@@ -67,6 +67,8 @@ void CardDeck::shuffle(){
     }
 }
 
+// alternative you manualy have to create a new deck, good if you 
+// want to play with a different mulitble decks
 Card CardDeck::drawCard(){
 
     // if deck is empty make new deck and shuffle

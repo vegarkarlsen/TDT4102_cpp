@@ -5,6 +5,13 @@
 #include "cardDeck.h"
 
 
-class BlackJack{
-    
+class Blackjack{
+    private:
+        CardDeck deck;
+        int getValue();
+        int saldo;
+        
+    public:
+        Blackjack(int startSaldo);
+
 };
