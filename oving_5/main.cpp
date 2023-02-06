@@ -28,8 +28,9 @@ int main(){
 
     CardDeck cardDeck{};
     cardDeck.shuffle();
-    cardDeck.printDeck();
-    Card card = cardDeck.drawCard();
+    // cardDeck.printDeck();
+    
+    
     
     return 0;
 

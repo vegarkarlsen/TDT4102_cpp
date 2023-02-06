@@ -2,8 +2,13 @@
 #include "cardDeck.h"
 #include "random.h"
 
-CardDeck::CardDeck(){
-    for (int s = 0; s < 4 ; s++){
+
+void CardDeck::newDeck(){
+
+        // clear deck before making new 
+        CardDeck::cards.clear();
+
+        for (int s = 0; s < 4 ; s++){
         // trough suit
         for (int r = 2; r < 15; r++){
             // trough rank
@@ -18,6 +23,14 @@ CardDeck::CardDeck(){
         }
     }
 }
+
+
+
+CardDeck::CardDeck(){
+    CardDeck::newDeck();
+}
+
+
 
 
 void CardDeck::swap(int card1, int card2){
@@ -55,14 +68,16 @@ void CardDeck::shuffle(){
 }
 
 Card CardDeck::drawCard(){
-    if (!CardDeck::cards.empty()){
-        Card card = CardDeck::cards.back();
-        CardDeck::cards.pop_back();
-        return card;
+
+    // if deck is empty make new deck and shuffle
+    if (CardDeck::cards.empty()){
+        std::cout << "Deck empty, taking a new one" << std::endl;
+        CardDeck::newDeck();
+        CardDeck::shuffle();
     }
 
-    // if deck empty return random card
-    Card card{Suit::clubs, Rank::ace};
-    std::cout << "deck is empty, returning ace of spades" << std::endl;
+    // save last card in deck and pop it
+    Card card = CardDeck::cards.back();
+    CardDeck::cards.pop_back();
     return card;
 }

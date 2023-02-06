@@ -9,6 +9,7 @@ class CardDeck{
         vector<Card> cards;
         // this is private because we dont want to swap on accsident
         void swap(int card1, int card2);
+        void newDeck();
         
     
     public:
