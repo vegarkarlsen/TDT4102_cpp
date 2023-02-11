@@ -18,4 +18,5 @@ class CardDeck{
         void shuffle();
         // draws a card and remove it from the deck
         Card drawCard();
+        int countCards();
 };

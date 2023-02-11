@@ -72,6 +72,7 @@ void CardDeck::shuffle(){
 Card CardDeck::drawCard(){
 
     // if deck is empty make new deck and shuffle
+    // this is not good if you manually want to swap deck
     if (CardDeck::cards.empty()){
         std::cout << "Deck empty, taking a new one" << std::endl;
         CardDeck::newDeck();
@@ -82,4 +83,8 @@ Card CardDeck::drawCard(){
     Card card = CardDeck::cards.back();
     CardDeck::cards.pop_back();
     return card;
+}
+
+int CardDeck::countCards(){
+    return static_cast<int>(CardDeck::cards.size());
 }
