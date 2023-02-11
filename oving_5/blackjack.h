@@ -26,6 +26,8 @@ class Blackjack{
         Hand dealerHand;
         Hand playerHand;
 
+        void userBet();
+
         // take card from deck and put it in hand
         // alse evaluates hand
         void dealCard(Hand& hand);
@@ -41,11 +43,15 @@ class Blackjack{
 
         // returns true if player has busted
         bool playerAction();
+
+        // one game
         void gameLoop();
         
     public:
         // shufle deck when inizialise
         Blackjack(int startSaldo);
+
+        // gameloop 
         void start();
 
 };

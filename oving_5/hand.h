@@ -16,19 +16,15 @@ class Hand{
         // check for real blackjack (only two cards and sum = 11)
         // need to be done after calucating sum
         
-
-
-
     public:
         // cards on hand
         vector<Card> cardsOnhand;
         // value of hand
         int handSum = 0;
 
-        // start by dealing cards
-        // Hand();
         // append card to hand
         void appendCard(Card card);
+
         // this does all hand calcualtions
         void evaluate();
 

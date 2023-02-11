@@ -23,6 +23,23 @@ Blackjack::Blackjack(int startSaldo) : saldo{startSaldo}
     Blackjack::deck.shuffle();
 }
 
+// could use unsigned int beacuse we only accept positive values
+void Blackjack::userBet(){
+    bool betAccepted = 0;
+    
+
+    while (!betAccepted){
+
+        Blackjack::betAmount = inputInt("Bet amount: ");
+
+        if (Blackjack::betAmount >= 0 && Blackjack::betAmount <= Blackjack::saldo){
+            betAccepted = 1;
+            break;
+        }
+    }
+
+    Blackjack::saldo -= Blackjack::betAmount; 
+}
 
 void Blackjack::dealCard(Hand& hand){
     hand.appendCard(Blackjack::deck.drawCard());
@@ -79,7 +96,7 @@ void Blackjack::roundResult(int result){
     std::cout << std::endl;
 }
 
-// returns true if player has busted, else false FIXME: bug somewere
+// returns true if player has busted, else false 
 bool Blackjack::playerAction(){
 
     while (1){
@@ -127,8 +144,7 @@ void Blackjack::gameLoop(){
     }
 
     // bet amont
-    Blackjack::betAmount = inputInt("Bet amount: ");
-    Blackjack::saldo -= Blackjack::betAmount; // TODO: can get negative saldo
+    Blackjack::userBet();
     
     // evalute for real blackjack:
     // -----------------------------
@@ -155,7 +171,7 @@ void Blackjack::gameLoop(){
     // hide dealer 2. card on printout
     Blackjack::printHands(1);
 
-    // hit stand..
+    // player action (hit, stand, doublle)
     bool playerBust = Blackjack::playerAction();
     if (playerBust){
         Blackjack::roundResult(0);
@@ -167,23 +183,20 @@ void Blackjack::gameLoop(){
         Blackjack::roundResult(1);
         return;
     }
-    
-    // print cards when dealer is done
-    // Blackjack::printHands();
 
     // playerSum > dealerSum ==> player won
     if (Blackjack::playerHand.handSum > Blackjack::dealerHand.handSum){
         Blackjack::roundResult(1);
     }
-    // playerSum == dealerSum ==> dealer won
-    else if (Blackjack::playerHand.handSum == Blackjack::dealerHand.handSum)
+    // playerSum == dealerSum ==> draw
+    else if (Blackjack::playerHand.handSum == Blackjack::dealerHand.handSum){
         Blackjack::roundResult(2);
+    }
     // you lose
     else {
         Blackjack::roundResult(0);
     }
 
-    // ----------------------
 }
 
 void Blackjack::start(){
