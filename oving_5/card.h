@@ -29,6 +29,7 @@ class Card {
         string getSuit();
         int getRank();
         string toString();
+        void prettyPrint();
 
 
 };

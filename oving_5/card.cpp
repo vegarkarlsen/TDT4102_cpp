@@ -50,6 +50,55 @@ string Card::toString(){
 }
 
 
+// ♠
+std::map<int, std::string> suitToStringMapPretty{
+        {0, "C"},
+        {1, "D"},
+        {2, "H"},
+        {3, "S"}
+    };
+
+
+
+std::map<int, std::string> rankToStringMapPretty{
+    {2, "2"},
+    {3, "3"},
+    {4, "4"},
+    {5, "5"},
+    {6, "6"},
+    {7, "7"},
+    {8, "8"},
+    {9, "9"},
+    {10, "10"},
+    {11, "J"},
+    {12, "Q"},
+    {13, "K"},
+    {14, "A"}
+};
+
+void Card::prettyPrint(){
+    int cardWidth = 9;
+    
+    string rank = rankToStringMapPretty.at(static_cast<int>(Card::r));
+    string suit = suitToStringMapPretty.at(static_cast<int>(Card::s));
+
+    cout << " --------" << endl;
+    cout << "|" << rank << setw(cardWidth-1) << "|"<<endl;
+    cout << "|" << suit << setw(cardWidth-1)<<"|"<<endl;
+    cout << "|" << setw(cardWidth) << "|" << endl;
+    cout << "|" << setw(cardWidth)<< "|"<< endl;
+    cout << "|" << setw(cardWidth-1) << suit <<"|"<<endl;
+    cout << "|" << setw(cardWidth-1) << rank << "|" <<endl;
+    cout << " --------" << endl; 
+}
+
+
+
+
+
+
+
+
 
 
 

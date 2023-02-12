@@ -7,13 +7,13 @@
 #include "cardDeck.h"
 #include "blackjack.h"
 
+// #include "windows.h"
+
 /*
 oppgave 1 e)
 Det er mer oversiktlig å bruke symboler
 lettere å koble sammen kortene
 */
-
-
 
 int main(){
     
@@ -23,11 +23,7 @@ int main(){
     // string suit = suitToString(s);
     // cout << "rank: " << rank << " suit: " << suit << endl;
 
-    // Rank r = static_cast<Rank>(11);
-    // Suit s = static_cast<Suit>(3);
-    // Card c{s,r};
     // cout << c.toString() << endl;
-
     // CardDeck cardDeck{};
     // cardDeck.shuffle();
     // cardDeck.printDeck();
@@ -49,6 +45,6 @@ int main(){
 
     Blackjack b{5000};
     b.start();
-    
+
     return 0;
 }

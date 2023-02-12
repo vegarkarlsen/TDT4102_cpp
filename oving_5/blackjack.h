@@ -46,6 +46,9 @@ class Blackjack{
 
         // one game
         void gameLoop();
+
+        // doublle down
+        void doubleDown();
         
     public:
         // shufle deck when inizialise

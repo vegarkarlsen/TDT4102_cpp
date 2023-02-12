@@ -53,6 +53,7 @@ void Blackjack::printHands(int hide){
 
     std::cout << "Your cards: " ;
     Blackjack::playerHand.printHand();
+    std::cout << "Your bet: " << Blackjack::betAmount << std::endl;
     std::cout << "--------------------------------------" << std::endl;
 }
 
@@ -97,11 +98,12 @@ void Blackjack::roundResult(int result){
 }
 
 // returns true if player has busted, else false 
+// TODO: add split when card is 10 and 10
 bool Blackjack::playerAction(){
 
     while (1){
 
-        char action = inputChar("hit (h), stand (s), doubble (d): ");
+        char action = inputChar("hit (h), stand (s), doubble (d) ");
 
         switch (action)
         {
@@ -120,8 +122,19 @@ bool Blackjack::playerAction(){
             break;
 
         case 'd':
-            std::cout << "no supprt for doubble yet" << std::endl;
+            // double down, draw one card and exit
+            Blackjack::doubleDown();
+            Blackjack::printHands(1);
+            if (Blackjack::playerHand.checkForBust()){
+                return 1;
+            }
+            else {
+                return 0;
+            }
             break;
+
+        // case 'p':
+        //     std::cout << "no supprot for split yet" << std::endl;
 
         default:
             break;
@@ -211,4 +224,10 @@ void Blackjack::start(){
         // play until exit
         Blackjack::gameLoop();
     }
+}
+
+void Blackjack::doubleDown(){
+    Blackjack::betAmount *= 2;
+    // std::cout << "dobble down, total bet is now: " << Blackjack::betAmount << std::endl;
+    Blackjack::dealCard(Blackjack::playerHand);
 }

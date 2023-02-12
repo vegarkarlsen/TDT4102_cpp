@@ -125,3 +125,4 @@ void Hand::clear(){
 bool Hand::checkForBust(){
     return (Hand::handSum > 21);
 }
+

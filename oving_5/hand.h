@@ -39,6 +39,5 @@ class Hand{
 
         // clear hand
         void clear();
-        
 
 };
