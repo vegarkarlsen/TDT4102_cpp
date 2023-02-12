@@ -26,8 +26,6 @@
 // std::filesystem::path fileName{"myFile.txt"}; does not work!
 
 
-
-
 std::string stringToLower(std::string str){
     
     std::string newString;
