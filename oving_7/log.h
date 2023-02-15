@@ -1,0 +1,25 @@
+
+#pragma once
+#include <iostream>
+
+
+class Log
+{
+    
+public:
+
+    enum Level { Warning, Error, Info };
+
+    static std::ostream& GetStream() { return std::cout; }
+    static bool IsLevelActive(Level l) { return true; }
+};
+
+#ifndef NO_LOG
+#define LOG_ERROR(M)   do { if (Log::IsLevelActive(Log::Error))   (Log::GetStream() <<"[ERROR]: " << M << "\n"); } while (false)
+#define LOG_INFO(M)    do { if (Log::IsLevelActive(Log::Info))    (Log::GetStream() << "[INFO]: " << M << "\n"); } while (false)
+#define LOG_WARNING(M) do { if (Log::IsLevelActive(Log::Warning)) (Log::GetStream() << "[WARNING]: " << M << "\n"); } while (false)
+#else
+#define LOG_ERROR(M)
+#define LOG_INFO(M)
+#define LOG_WARNING(M)
+#endif
