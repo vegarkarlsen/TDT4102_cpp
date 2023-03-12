@@ -1,9 +1,8 @@
 
 #include <iostream>
+#include "matrix.h"
 
-
-
-
+// #include "dummy.h"
 
 // void fillInFibonacciNumbers(int result, int lenght){
 //     int a = 0;
@@ -80,6 +79,8 @@ void createFibonacci(){
 }
 
 
+
+
 int main(){
     // fillInFibonacciNumbers(1,10);
 
@@ -88,7 +89,17 @@ int main(){
     // fillInFibonacciNumbers(result, size);
     // printArray(result, size);
 
-    createFibonacci();
+    // createFibonacci();
+
+    // Matrix I {3};
+    // Matrix a{3,2};
+
+    // a.set(1,1, 10.0);
+    // std::cout << I << std::endl << a << std::endl;
+
+    // std::cout << I.get(1,1);
+
+    // dummyTest();
 
     return 0;
 }
