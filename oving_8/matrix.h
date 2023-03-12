@@ -35,4 +35,9 @@ class Matrix{
         Matrix(const Matrix &oldObject);
 
         Matrix &operator=(Matrix tempCopy);
+
+        Matrix &operator+=(const Matrix &sumMatrix);
+
+        // pass by value bacuase we dont want to alter the other matrixes
+        Matrix &operator+(const Matrix sumMatrix);
 };  

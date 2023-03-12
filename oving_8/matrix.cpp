@@ -66,7 +66,6 @@ int Matrix::getRows() const { return nR; }
 
 int Matrix::getColumns() const { return nC; }
 
-// bug in 
 std::ostream& operator<<(std::ostream &os, const Matrix &m){
     
     os << "[";
@@ -87,6 +86,9 @@ std::ostream& operator<<(std::ostream &os, const Matrix &m){
     return os;
 }
 
+
+
+
 Matrix::Matrix(const Matrix &oldObject) : Matrix{oldObject.nR, oldObject.nC}{
     for (int r = 0; r < oldObject.nR; r++){
         for (int c = 0; c < oldObject.nC; c++){
@@ -98,11 +100,33 @@ Matrix::Matrix(const Matrix &oldObject) : Matrix{oldObject.nR, oldObject.nC}{
 
 // FIXME: does not work if shape is not the same
 Matrix &Matrix::operator=(Matrix tempCopy){
+    // need to be same shape (need to handle memory leak to fix this)
+    assert(tempCopy.nR == this->nR && tempCopy.nC == this->nC);
 
-    for (int i = 0; i < tempCopy.nR; i++){
-        std::swap(*this->matrix[i], *tempCopy.matrix[i]);
-    }
-    std::swap(**this->matrix, **tempCopy.matrix);
+    std::swap(this->matrix, tempCopy.matrix);
+
     return *this;
 }
+
+
+Matrix &Matrix::operator+=(const Matrix &sumMatrix){
+    // need to be same shape
+    assert(sumMatrix.nR == this->nR && sumMatrix.nC == this->nC);
+
+    for (int r = 0; r < nR; r++){
+        for (int c = 0; c < nC; c++){
+            this->matrix[r][c] += sumMatrix.matrix[r][c];
+
+        }
+    }
+    return *this;
+}
+
+Matrix &Matrix::operator+(Matrix sumMatrix){
+
+    sumMatrix += *this;
+    
+    return sumMatrix;
+}
+
 

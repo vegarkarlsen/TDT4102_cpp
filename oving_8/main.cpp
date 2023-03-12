@@ -79,6 +79,45 @@ void createFibonacci(){
 }
 
 
+void task5c(){
+
+    Matrix A{2};
+    Matrix B{2};
+    Matrix C{2};
+
+    double aVal = 1.0;
+    double bVal = 4.0;
+    double cVal = 1.0;
+
+    for (int r = 0; r < 2; r++){
+        for (int c = 0; c < 2 ; c++){
+            A[r][c] = aVal;
+            aVal++;
+
+            B[r][c] = bVal;
+            bVal--;
+
+            C[r][c] = cVal;
+            cVal = 3.0;
+
+
+        }
+    }
+    C[1][0] = 1.5;
+    C[1][1] = 2.0;
+
+    std::cout << "a: " << A << std::endl;
+    std::cout << "b: " << B << std::endl;
+    std::cout << "c: " << C << std::endl;
+
+    A += B + C;
+    std::cout << "summing " << std::endl;
+
+    std::cout << "a: " << A << std::endl;
+    std::cout << "b: " << B << std::endl;
+    std::cout << "c: " << C << std::endl;
+}
+
 
 
 int main(){
@@ -101,5 +140,8 @@ int main(){
 
     // dummyTest();
 
+    task5c();
+    
+    
     return 0;
 }
