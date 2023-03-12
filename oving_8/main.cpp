@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include "matrix.h"
+#include "matrix_fast.h"
 
 // #include "dummy.h"
 
@@ -140,8 +141,31 @@ int main(){
 
     // dummyTest();
 
-    task5c();
+    // task5c();
+
+    // MatrixFast a{3,3};
+
+    // std::cout << a;
+
+    // MatrixFast a{3,3};
+    // MatrixFast b{a};
+
+    // MatrixFast c{7,7};
+
+    // std::cout << c << std::endl;
+
+    // c = a;
+
+    // a.set(1,1,50);
+
+    // std::cout << a << std::endl;
+
+    // std::cout << b << std::endl;
     
+    // std::cout << c << std::endl;
     
+
+    
+
     return 0;
 }
