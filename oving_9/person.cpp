@@ -1,7 +1,10 @@
 #include "person.h"
 
-Person::Person(std::string n, std::string m, std::unique_ptr<Car> c) : name{n}, email{m}, car{std::move(c)} {
-} 
+Person::Person(std::string n, std::string m, std::unique_ptr<Car> c) : 
+name{n}, 
+email{m}, 
+car{std::move(c)} 
+{} 
 
 std::string Person::getName() const { 
     return this->name; 

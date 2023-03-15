@@ -1,81 +1,69 @@
 #include "meeting.h"
-
-
-std::ostream& operator<<(std::ostream& os, const Campus &c){
-    switch (int(c))
-    {
-    case 0:
-        os << "Trondheim";
-        break;
-    case 1:
-        os << "Aalesund";
-        break;
-    case 2:
-        os << "gjoovik";
-        break;
-    default:
-        break;
-    }
-    return os;
-}
-
+#include "iostream"
+#include "map"
 
 void Meeting::addParticipants(std::shared_ptr<Person> p){
-    participants.push_back(p);
-
+    this->participants.push_back(p);
+    
 }
 
-Meeting::Meeting(int d, int sTime, int eTime, Campus loc, std::string sub, std::shared_ptr<Person> leader) : 
-    day{d}, 
-    startTime{sTime}, 
-    endTime{eTime}, 
-    location{loc}, 
-    subject{sub}, 
-    leader{leader} 
-    {
-        addParticipants(leader);
+Meeting::Meeting(int DAY, int STARTTIME, int ENDTIME, Campus LOCATION, std::string SUBJECT, std::shared_ptr<Person> LEADER) 
+: day{DAY}, startTime{STARTTIME}, endTime{ENDTIME}, location{LOCATION}, subject{SUBJECT}, leader{LEADER}
+{
+    this->addParticipants(LEADER);
 }
 
-std::vector<std::string> Meeting::getParticipantsList(){
+
+std::vector<std::string> Meeting::getParticipantsList() const {
     std::vector<std::string> list;
 
-    for (auto n : participants){
-        list.push_back(n->getName()); 
+    for (auto p : this->participants){
+        list.push_back(p->getName());
     }
     return list;
 }
 
-std::ostream& operator<<(std::ostream &os, Meeting& m ){
-    os << "subject: " << m.getSubject() << std::endl;
-    os << "location: " << m.getLocation() << std::endl;
-    os << "startTime" << m.getStartTime() << std::endl;
-    os << "endTime: " << m.getEndTime() << std::endl;
-    os << "meeting leader: " << m.getLeader()->getName() << std::endl;
-    os << "participants: " << std::endl;
+
+std::map<Campus, std::string> CampusToString{
+    {Campus::aalesund, "aalesund"},
+    {Campus::gjoovik, "gjovik"},
+    {Campus::trondheim, "trondheim"}
+};
+
+std::ostream& operator<<(std::ostream &os, const Meeting &m){
+    os << "subject: " << m.getSubject() << "\n"
+    << "location: " << CampusToString.at(m.GetLocation()) << "\n"
+    << "startTime: " << m.getStartTime() << "\n"
+    << "endTime: " << m.getEndTime() << "\n"
+    << "participants: " << "\n";
+
     for (auto name : m.getParticipantsList()){
-        os << name << std::endl;
+        os << name << "\n";
     }
-} 
+    return os;
+}
 
+std::vector<std::shared_ptr<Person>> Meeting::findPotentialCoDriving(const Meeting &m) const {
+    std::vector<std::shared_ptr<Person>> potentialCoDrivers;
 
-std::vector<std::shared_ptr<Person>> Meeting::findPotentialCoDriving(const Meeting &m){
-    std::vector<std::shared_ptr<Person>> sameTime;
-    if (abs(this->endTime - m.endTime) < 1){
-        return sameTime;
+    if (this->location != m.location){
+        return potentialCoDrivers;
     }
-    if (abs(this->startTime - m.startTime) < 1){
-        return sameTime;          
+    if (this->day != m.day){
+        return potentialCoDrivers;
     }
-    if (this->day == m.day){
-        return sameTime;    
+    if (abs(this->startTime - m.startTime) > 1){
+        return potentialCoDrivers;
     }
-    if (this->location == m.location){
-        return sameTime;
+    if (abs(this->endTime - m.endTime) > 1){
+        return potentialCoDrivers;
     }
 
     for (auto p : m.participants){
         if (p->hasAvailibleSeat()){
-            sameTime.push_back(p);
+            potentialCoDrivers.push_back(p);
         }
     }
+    return potentialCoDrivers;
 }
+

@@ -1,18 +1,18 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <memory>
 #include <vector>
+#include <memory>
 
 #include "person.h"
 
-enum class Campus {trondheim=0, aalesund, gjoovik};
 
-std::ostream& operator<<(std::ostream& os, const Campus &c);
+
+
+enum class Campus{trondheim=0, aalesund, gjoovik};
 
 
 
 class Meeting{
+
     private:
         int day;
         int startTime;
@@ -21,21 +21,24 @@ class Meeting{
         std::string subject;
         const std::shared_ptr<Person> leader;
         std::vector<std::shared_ptr<Person>> participants;
-    
+
     public:
-        int getDay() const { return day; }
-        int getStartTime() const {return startTime; }
-        int getEndTime() const { return endTime; }
-        Campus getLocation() const {return location; }
+        int getDay() const {return day; }
+        int getStartTime() const { return startTime; }
+        int getEndTime() const {return endTime; }
+        Campus GetLocation() const {return location; }
         std::string getSubject() const {return subject; }
-        std::vector<std::shared_ptr<Person>> getParticipants() const { return participants; }
-        std::shared_ptr<Person> getLeader() const { return leader; }
+        std::shared_ptr<Person> getLeader() const {return leader; }
 
         void addParticipants(std::shared_ptr<Person> p);
 
-        Meeting(int d, int sTime, int eTime, Campus loc, std::string sub, std::shared_ptr<Person> leader);
-        
-        std::vector<std::string> getParticipantsList();
+        Meeting(int DAY, int STARTTIME, int ENDTIME, Campus LOCATION, std::string SUBJECT, std::shared_ptr<Person> LEADER);
 
-        std::vector<std::shared_ptr<Person>> findPotentialCoDriving(const Meeting &m);
+        std::vector<std::string> getParticipantsList() const ;
+
+        std::vector<std::shared_ptr<Person>> findPotentialCoDriving(const Meeting &m) const;
+
+
+
+
 };
