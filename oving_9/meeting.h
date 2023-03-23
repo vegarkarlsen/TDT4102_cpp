@@ -6,7 +6,6 @@
 
 
 
-
 enum class Campus{trondheim=0, aalesund, gjoovik};
 
 
@@ -42,3 +41,5 @@ class Meeting{
 
 
 };
+
+std::ostream& operator<<(std::ostream &os, const Meeting &m);
