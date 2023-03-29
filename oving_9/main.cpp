@@ -1,8 +1,15 @@
+#include <iostream>
+#include <memory>
+#include <string>
+
 #include "person.h"
 #include "car.h"
 #include "meeting.h"
-#include <iostream>
-#include <memory>
+#include "meetingWindow.h"
+#include "AnimationWindow.h"
+#include "widgets/Button.h"
+
+
 
 #include "meetingWindow.h"
 
@@ -34,6 +41,7 @@ int main(){
     // Person b{"olga", "olga@n.no"}; 
     // std::cout << p << std::endl;
     // std::cout << b << std::endl;
+<<<<<<< HEAD
 
     std::string title = "Meeting simulator";
     MeetingWindow win{500,500,wWidth, wHeigt, title};
@@ -42,5 +50,26 @@ int main(){
 
 
     win.wait_for_close();
+=======
+    
+    // std::shared_ptr<Person> leader = std::make_shared<Person>("andreas", "@", std::make_unique<Car>(3));
+    // std::shared_ptr<Person> par = std::make_shared<Person>("Vegar", "@", std::make_unique<Car>(4));
+    
+    // Meeting m{5, 50, 70, Campus::trondheim, "AI", leader};
+    // m.addParticipants(par);
+
+    // std::cout << m << std::endl;
+
+    const std::string title = "GUI";
+    MeetingWindow m{500, 300, wWidth, wHeight, title};
+
+    m.wait_for_close();
+
+    for (auto p : m.people){
+        std::cout << *p << std::endl;
+    }
+
+
+>>>>>>> 9d6db930b8f3a06fbfcf72e8a9a8f1136e427bea
     return 0;
 }

@@ -35,6 +35,7 @@ std::ostream& operator<<(std::ostream &os, const Meeting &m){
     << "location: " << CampusToString.at(m.GetLocation()) << "\n"
     << "startTime: " << m.getStartTime() << "\n"
     << "endTime: " << m.getEndTime() << "\n"
+    << "leader: " << m.getLeader()->getName() << "\n"
     << "participants: " << "\n";
 
     for (auto name : m.getParticipantsList()){
