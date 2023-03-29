@@ -1,19 +1,4 @@
 #include "meetingWindow.h"
-<<<<<<< HEAD
-
-
-MeetingWindow::MeetingWindow(int x, int y, int w, int h, const std::string &title):
-        AnimationWindow{x, y, w, h, title},
-        quitButton{{w - pad - btnW/2, pad + btnH/2}, btnW, btnH, "quit"}
-        {
-            add(quitButton);
-            quitButton.setCallback(std::bind(MeetingWindow::cb_quit, this));
-            
-        }
-
-void MeetingWindow::cb_quit(){
-    close();
-=======
 #include <iostream>
 #include <memory>
 
@@ -101,5 +86,4 @@ void MeetingWindow::newPerson(){
     this->personCar.setText("0");
     
     std::cout << "added person" << std::endl;
->>>>>>> 9d6db930b8f3a06fbfcf72e8a9a8f1136e427bea
 }

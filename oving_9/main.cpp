@@ -41,16 +41,6 @@ int main(){
     // Person b{"olga", "olga@n.no"}; 
     // std::cout << p << std::endl;
     // std::cout << b << std::endl;
-<<<<<<< HEAD
-
-    std::string title = "Meeting simulator";
-    MeetingWindow win{500,500,wWidth, wHeigt, title};
-
-
-
-
-    win.wait_for_close();
-=======
     
     // std::shared_ptr<Person> leader = std::make_shared<Person>("andreas", "@", std::make_unique<Car>(3));
     // std::shared_ptr<Person> par = std::make_shared<Person>("Vegar", "@", std::make_unique<Car>(4));
@@ -70,6 +60,5 @@ int main(){
     }
 
 
->>>>>>> 9d6db930b8f3a06fbfcf72e8a9a8f1136e427bea
     return 0;
 }
