@@ -10,8 +10,6 @@
 #include "widgets/Button.h"
 
 
-
-
 void test(){
 
     std::unique_ptr<Person> unqPers = std::make_unique<Person>("n", "@");

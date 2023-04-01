@@ -131,17 +131,17 @@ int main(){
 
     // createFibonacci();
 
-    // Matrix I {3};
-    // Matrix a{3,2};
+    Matrix I {3};
+    Matrix a{3,2};
 
-    // a.set(1,1, 10.0);
-    // std::cout << I << std::endl << a << std::endl;
+    a.set(1,1, 10.0);
+    std::cout << I << std::endl << a << std::endl;
 
-    // std::cout << I.get(1,1);
+    std::cout << I.get(1,1);
 
     // dummyTest();
 
-    // task5c();
+    task5c();
 
     // MatrixFast a{3,3};
 
