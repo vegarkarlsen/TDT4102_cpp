@@ -10,6 +10,12 @@
 #include "widgets/Button.h"
 
 
+<<<<<<< HEAD
+=======
+
+#include "meetingWindow.h"
+
+>>>>>>> e6d68cafe9189114c44be01405c01ac12a4d6920
 void test(){
 
     std::unique_ptr<Person> unqPers = std::make_unique<Person>("n", "@");
@@ -27,6 +33,9 @@ void test(){
     std::unique_ptr<Person> newUnq = std::move(unqPers);
 
 }
+
+
+
 
 
 int main(){
