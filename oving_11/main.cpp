@@ -9,6 +9,7 @@
 
 #include "person.h"
 #include "LinkedList.h"
+#include "logger.hpp"
 
 
 void task_1a(std::vector<std::string> &strs){
@@ -85,57 +86,44 @@ void replace_set(std::set<std::string> &strs, std::string old, std::string repla
 
 
 
+void testMovePtr(){
+    int i = 5;
+    int n = 16;
+
+    int *iPtr = &i;
+
+    int *ptr2 = iPtr;
+
+
+    *iPtr = 6;
+    *ptr2 = 10;
+
+    iPtr = &n;
+    *ptr2 = 23;
+    std::cout << "ptr 1: " <<*iPtr << std::endl;
+    std::cout << "ptr 2: " <<*ptr2 << std::endl;
+    std::cout << "i: " << i << std::endl;
+
+
+}
+
+
 int main() {
-
-    // std::vector<std::string> strs = {"Lorem", "Ipsum", "Dolor", "Sit", "Amet", "Consectur", "Dolor"};
-
-    // std::set<std::string> set_strs = {"Lorem", "Ipsum", "Dolor", "Sit", "Amet", "Consectur", "Dolor"};
-
-
-    // task_1a_set(set_strs);
     
-    // std::cout << std::endl;
-    // replace_set(set_strs, "Dolor", "test");
-
-    // task_1a_set(set_strs);
-
-    // std::list<Person> l;
-    // Person pa{"An", "gs"};
-    // Person pb{"Bn", "gs"};
-    // Person pc{"Cn", "gs"};
-    // Person pd{"Dn", "gs"};
-    // Person pe{"En", "gs"};
-
-    // insertOrdered(l, pa);
-    // insertOrdered(l, pb);
-    // insertOrdered(l, pc);
-    // insertOrdered(l, pd);
-    // insertOrdered(l, pe);
-
-    // for (auto p : l){
-    //     std::cout << p << std::endl;
-    // }
-
-
-    // std::cout << (a > b) << std::endl;
-
     LinkedList::LinkedList l;
 
-    l.insert(l.begin(), "test");
-    l.insert(l.end(), "hei");
-    l.insert(l.end(), "halla");
+    // l.insert(l.end(), "1");
+    // l.insert(l.end(), "2");
 
-    
-    std::cout << l.begin()->getValue() << std::endl;
-    std::cout <<l.begin()->getNext()->getValue() << std::endl;
-    std::cout << l.begin()->getNext()->getNext()->getValue() << std::endl;
-    
-    std::cout << std::endl;
+    int list[] = {1,2,3};
+    int *head = list;
+    int const *tail = head;
 
-    // l.remove(l.end());
-    // std::cout << l.begin()->getValue() << std::endl;
-    // std::cout << l.begin()->getNext()->getValue() << std::endl;
-    
-    
+    int newList[] = {4,5,6};
+    head = newList;
+
+    INFO("head: " << head[0] << " tail: " << tail[0]);
+
+    // std::cout << l << std::endl;
     return 0;
 }

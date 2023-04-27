@@ -57,7 +57,6 @@ public:
     //if next is a nullptr (i.e. head is the dummy node), the list is emtpy
     bool isEmpty() const { return head->next == nullptr; }
 
-
     //return a pointer to first element
     Node* begin() const { return head.get(); }
     //return a pointer to beyond-end element

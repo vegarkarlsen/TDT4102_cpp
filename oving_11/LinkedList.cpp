@@ -1,4 +1,5 @@
 #include "LinkedList.h"
+#include "logger.hpp"
 
 // using namespace LinkedList;
 
@@ -7,66 +8,41 @@ std::ostream& operator<<(std::ostream &os, const LinkedList::Node &node){
     return os;
 }
 
-// FIXME: bug when inserting end()
+// std::ostream & operator<<(std::ostream & os, const LinkedList::LinkedList& list){
+
+//     LinkedList::Node *iterator = list.begin();
+
+//     while (iterator != list.end()){
+//         os << iterator->getValue() << ", ";
+//         iterator = iterator->getNext();
+//     }
+//     return os;
+// }
+
+
 LinkedList::Node* LinkedList::LinkedList::insert(Node *pos, const std::string& value){
+
+    DEBUG("[INSERT()] pos: " << pos << " pos->next: " << pos->next.get() << " pos->prev: " << pos->prev);
     
-    // first element in list    
-    if (pos == head.get()){
-        std::unique_ptr<Node> newNode = std::make_unique<Node>(value,
-            std::move(head), 
-            nullptr);
-        // pos points to same adress as head
-        pos->prev = newNode.get();
-
-        head = std::move(newNode);
-        return newNode.get();
-
-    }
-    else{ // not first element
-        // newNode->next point to pos, and newNode->prev point to pos->prev 
-        std::unique_ptr<Node> newNode = std::make_unique<Node>(value, 
+    // (pos - 1)->next moved to newNode
+    // newNode->prev = (copy) pos->prev
+    std::unique_ptr<Node> newNode = std::make_unique<Node>(value, 
             std::move(pos->prev->next), 
             pos->prev);
-        
-        // update prev->next to point to newNode
-        pos->prev->next = std::move(newNode);
-        
-        // pos->prev points to newNode
-        pos->prev = newNode.get();
-        return newNode.get();
-    }
-}
-
-LinkedList::Node* LinkedList::LinkedList::remove(Node* pos){
     
-    // first element in list
-    if (pos == head.get()){
-        // temprary store head
-        auto currentNode = std::move(head);
-        // (pos +1) prev pointer = nullptr
-        currentNode->next->prev = nullptr;
-        // head = (pos + 1) next pointer
-        head = std::move(currentNode->next);
-        // delete currentNode (pos)
-        currentNode.reset();
-        return head->next.get();
-
-    }else{ // not first element
-        // temperary store uniqe pointer of pos
-        auto currentNode = std::move(pos->prev->next);
-        // update (pos - 1) next pointer
-        currentNode->prev->next = std::move(currentNode->next);
-        //update (pos + 1) prev pointer
-        currentNode->prev->next->prev = currentNode->prev;
-
-        // pointer to (pos + 1)
-        Node *returnNode = currentNode->prev->next.get();
-
-        // delete current node (pos);
-        currentNode.reset();
-        return returnNode;
-    }
-    
+    DEBUG("newNode created: " << newNode.get() << 
+    " newNode->next: " << newNode->next.get() << 
+    " newNode->prev: " << newNode->prev
+    );
 
 
-}
+    // pos->prev point to newNode
+    pos->prev = newNode.get();
+
+    // move newNode to (pos - 1)->next
+    pos->prev->next = std::move(newNode);
+
+    return newNode.get();
+} 
+
+
