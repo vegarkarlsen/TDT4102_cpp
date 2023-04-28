@@ -1,0 +1,10 @@
+make_grid     6     6
+make_robot    bob   2      2 green
+make_robot    alice 4      4 blue
+move_robot    bob   2      3
+move_robot    alice 4      5
+recolor_robot alice yellow
+rename_robot  bob   roy
+move_robot    roy 5      5
+delete_robot  roy
+delete_robot  alice
