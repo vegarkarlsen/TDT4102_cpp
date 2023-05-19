@@ -56,7 +56,7 @@ const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap {
         }
     },
     {
-    TetrominoType::L,
+    TetrominoType::I,
         {
         {0, 1, 0, 0},
         {0, 1, 0, 0},
@@ -76,6 +76,11 @@ std::map<TetrominoType, TDT4102::Color> tetrominoTypeToColorMap{
     {TetrominoType::O, TDT4102::Color::yellow},
     {TetrominoType::I, TDT4102::Color::light_blue},
 };
+
+TDT4102::Color Tetromino::getColor(TetrominoType tetType){
+    return tetrominoTypeToColorMap.at(tetType);
+}
+
 
 
 Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : 
@@ -102,9 +107,9 @@ topLeftCorner(startingPoint), color(tetrominoTypeToColorMap.at(tetType))
     }
 }
 void Tetromino::printBlockMatrix(){
-    for (auto r : blockMatrix){
-        for (int i = 0; i < matrixSize; i++){
-            std::cout << static_cast<int>(r.at(i)) << " ";
+    for (int x = 0; x < matrixSize; x++){
+        for (int y = 0; y < matrixSize; y++){
+            std::cout << static_cast<int>(blockMatrix.at(x).at(y)) << " ";
         }
         std::cout << std::endl;
     }
@@ -114,16 +119,16 @@ void Tetromino::printBlockMatrix(){
 
 bool Tetromino::blockExist(int row, int col){
     // check index out of range
-    assert(row > matrixSize);
-    assert(col > matrixSize);
+    assert(row < matrixSize);
+    assert(col < matrixSize);
 
     return blockMatrix.at(row).at(col) != TetrominoType::NONE;
 }
 
 TetrominoType Tetromino::getBlock(int row, int col){
     // check index out of range
-    assert(row > matrixSize);
-    assert(col > matrixSize);
+    assert(row < matrixSize);
+    assert(col < matrixSize);
     return blockMatrix.at(row).at(col);
 }
 

@@ -12,33 +12,47 @@ constexpr int winWidth {500};
 constexpr int winHeight {650};
 const std::string winName {"Tetris"};
 
+//fixed row and columns size
+constexpr int rows = 10;
+constexpr int col = 20;
+constexpr int cellDownScale = 20; 
+
+struct Map{
+    int cellSize;
+    TDT4102::Point origo;
+    int width;
+    int height;
+};
 
 class TetrisWindow : public TDT4102::AnimationWindow {
 public:
     
+    TDT4102::Color backgroundColor = TDT4102::Color::light_grey;
+    
     TetrisWindow();
     void run();
     
-
-
 private:
-    const TDT4102::Color backgroundColor = TDT4102::Color::light_grey;
-    const int cellSize = Tetromino::blockSize;
-    const int mapWidth = winWidth - (cellSize * 2);
-    const int mapHeight = winHeight - (cellSize * 2);
-    const int mapX = 0;
-    const int mapY = 0;
-
-    const int nRows = mapWidth/cellSize;
-    const int nCol = mapHeight/cellSize;
-
-    TDT4102::Point startTetromino {mapX + (cellSize * nRows)/2, mapY};
+    Map map;
 
     std::vector<std::vector<TetrominoType>> gridMatrix;
     Tetromino currentTetromino;
 
-    Tetromino randomTetromino();
-    void drawBoard();
+    // update map
+    void updateMapParameters();
+    void drawMap();
+
+
+    // updates this->currentTetromino
+    void generateRandomTetromino();
+    void drawTetromino(Tetromino tet);
+
+    bool validLeftMove();
+    bool validRightMove();
+    bool validDownMove();
+
+    void moveTetrominoDown();
+
 
 
     void handleInput();

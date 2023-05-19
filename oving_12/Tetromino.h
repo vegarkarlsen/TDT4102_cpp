@@ -5,7 +5,7 @@
 
 
 
-enum class TetrominoType{NONE, J, L, T, S, Z, O, I};
+enum class TetrominoType{NONE = 0, J=1, L=2, T=3, S=4, Z=5, O=6, I=7};
 
 class Tetromino {
 public:
@@ -22,15 +22,16 @@ public:
     void printBlockMatrix();
 
     // move
-    void moveDown() { topLeftCorner.y += blockSize; }
-    void moveLeft() { topLeftCorner.x -= blockSize; }
-    void moveRight() { topLeftCorner.x += blockSize; }
+    void moveDown(int size = blockSize) { topLeftCorner.y += size; }
+    void moveLeft(int size = blockSize) { topLeftCorner.x -= size; }
+    void moveRight(int size = blockSize) { topLeftCorner.x += size; }
 
     bool blockExist(int row, int col);
 
     TetrominoType getBlock(int row, int col);
     int getMatrixSize() const { return matrixSize; }
     TDT4102::Point getPosition() const {return topLeftCorner; }
+    static TDT4102::Color getColor(TetrominoType tetType);
 
 
    
