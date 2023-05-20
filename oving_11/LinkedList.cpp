@@ -1,48 +1,79 @@
+
+#include <cassert>
 #include "LinkedList.h"
 #include "logger.hpp"
 
-// using namespace LinkedList;
 
-std::ostream& operator<<(std::ostream &os, const LinkedList::Node &node){
-    os << node.getValue();
+
+std::ostream& operator<<(std::ostream &os, const Node &node){
+    os << node.value;
     return os;
 }
 
-// std::ostream & operator<<(std::ostream & os, const LinkedList::LinkedList& list){
+std::ostream & operator<<(std::ostream & os, const LinkedList& list){
 
-//     LinkedList::Node *iterator = list.begin();
+    Node *iterator = list.begin();
+    os << "[";
+    while (iterator != list.end()){
+        os << iterator->getValue() << ", ";
+        iterator = iterator->getNext();
+    }
+    os << "]";
+    return os;
+}
 
-//     while (iterator != list.end()){
-//         os << iterator->getValue() << ", ";
-//         iterator = iterator->getNext();
-//     }
-//     return os;
-// }
 
+Node* LinkedList::insert(Node *pos, const std::string& value){
 
-LinkedList::Node* LinkedList::LinkedList::insert(Node *pos, const std::string& value){
+    assert(pos != nullptr);
 
-    DEBUG("[INSERT()] pos: " << pos << " pos->next: " << pos->next.get() << " pos->prev: " << pos->prev);
+    if (pos == begin()){
+        head = std::make_unique<Node>(value, std::move(head), nullptr);
+        pos->prev = begin();
+    }
+    else {
+        pos->prev->next = std::make_unique<Node>(value, std::move(pos->prev->next), pos->prev);
+        pos->prev = pos->prev->getNext();
+    }
+    return pos->prev;
+}
+
+Node* LinkedList::remove(Node* pos){
+    // DEBUG("[prev<-pos->next] " << pos->prev << " <- " << pos << " -> " << pos->getNext());
     
-    // (pos - 1)->next moved to newNode
-    // newNode->prev = (copy) pos->prev
-    std::unique_ptr<Node> newNode = std::make_unique<Node>(value, 
-            std::move(pos->prev->next), 
-            pos->prev);
+    assert(pos != nullptr);
+    assert(pos != end());
+
+    if (pos == begin()){
+        head = std::move(pos->next);
+        head->prev = nullptr;
+        return begin();
+    } else { 
+        auto nextNode = pos->getNext();
+        // correct (pos +1)->prev = (pos-1), skipping pos
+        nextNode->prev = pos->prev;
+        // moving (pos-1)->next = (pos+1), skipping pos
+        pos->prev->next = std::move(pos->next);
+        // think pos deletes itself when it gets overwriten. 
+        
+        return nextNode;
+    }
     
-    DEBUG("newNode created: " << newNode.get() << 
-    " newNode->next: " << newNode->next.get() << 
-    " newNode->prev: " << newNode->prev
-    );
+}
 
+Node* LinkedList::find(const std::string &value){
+    for (auto it = begin(); it!= end(); it = it->getNext()){
+        if (it->getValue() == value){
+            return it;
+        }
+    }
+    return end();
+}
 
-    // pos->prev point to newNode
-    pos->prev = newNode.get();
-
-    // move newNode to (pos - 1)->next
-    pos->prev->next = std::move(newNode);
-
-    return newNode.get();
-} 
-
+void LinkedList::remove(const std::string& value){
+    auto removeNode = find(value);
+    if (removeNode != end()){
+        remove(removeNode);
+    }
+}
 

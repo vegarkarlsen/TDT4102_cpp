@@ -23,8 +23,7 @@ void TetrisWindow::run() {
         //Kall draw-funksjonene her
         drawMap();
         drawTetromino(currentTetromino);
-        // currentTetromino.printBlockMatrix();
-        gridMatrix.printBlockMatrix();
+        currentTetromino.printBlockMatrix();
         
         /********************************************************/
         next_frame();
@@ -120,22 +119,23 @@ void TetrisWindow::generateRandomTetromino(){
 bool TetrisWindow::validLeftMove(){
     int size = currentTetromino.getMatrixSize();
 
+    bool validMove = true;
+
     for (int x = 0; x < size; x++){
         for (int y = 0; y < size; y++){
-            DEBUG("checking left: x: " << y << " y: " << x);
-            if (currentTetromino.blockExist(y,x)){
-                DEBUG("found col: x: "<< y << " y:" << x);
-                // check outside map
-                if (currentTetromino.getPosition().x - (y  * map.cellSize) < map.origo.x){   
-                    return false;
+            if (currentTetromino.blockExist(x,y)){
+                DEBUG("checking block :" << x << ", " << y);
+                if (currentTetromino.getPosition().x + (x * map.cellSize) < map.origo.x){
+                    validMove = false;
+                    DEBUG("block False");
                 }
-                // TODO: check blockMatrix
-
             }
+
         }
     }
-    return true;
+    return validMove;
 }
+
 // TODO: implement this
 bool TetrisWindow::validRightMove(){
     int size = currentTetromino.getMatrixSize();

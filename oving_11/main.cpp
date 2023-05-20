@@ -8,8 +8,10 @@
 #include <memory>
 
 #include "person.h"
-#include "LinkedList.h"
+#include "linkedListGen.hpp"
 #include "logger.hpp"
+
+#include "std_lib_facilities.h"
 
 
 void task_1a(std::vector<std::string> &strs){
@@ -107,23 +109,60 @@ void testMovePtr(){
 
 }
 
+template<typename T>
+T maximum(T a, T b){
+    T r = a;
+    if (b > r){
+        r = b;
+    }
+    return r;
+}
+
+template<typename T>
+void shuffleVector(std::vector<T>& vec){
+    int a;
+    int b;
+    
+    T temp;
+    int size = static_cast<int>(vec.size()) - 1;
+
+    int times = randint(100, 1000);
+    for (int i = size; i < times; i++){
+        // two random numbers
+        a = randint(size);
+        b = randint(size);
+        
+        if (a == b){
+            continue;
+        }
+        // swap
+        temp = vec.at(a);
+        vec.at(a) = vec.at(b);
+        vec.at(b) = temp;
+ 
+    }
+}
+
+
 
 int main() {
     
-    LinkedList::LinkedList l;
+    LinkedList<std::string> l;
+    // std::cout << "head " << l.begin() << " tail " << l.end(); 
 
-    // l.insert(l.end(), "1");
-    // l.insert(l.end(), "2");
+    l.insert(l.end(), "1");
+    l.insert(l.end(), "2");
+    l.insert(l.end(), "3");
+    
+    // l.remove(l.begin()->getNext()->getNext());
 
-    int list[] = {1,2,3};
-    int *head = list;
-    int const *tail = head;
+    // std::cout << *l.begin() << std::endl;
+    // std::cout << *l.begin()->getNext() << std::endl;
+    // std::cout << *l.begin()->getNext()->getNext() << std::endl;
 
-    int newList[] = {4,5,6};
-    head = newList;
+    std::cout << l << std::endl;
 
-    INFO("head: " << head[0] << " tail: " << tail[0]);
 
-    // std::cout << l << std::endl;
+
     return 0;
 }

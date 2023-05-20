@@ -40,7 +40,7 @@ class Log{
 #define ERROR(...) do {                                     \
     if (Log::IsLevelActive(Log::Error))(                        \
         Log::getStream() << "[ERROR] File: " << __FILE__ <<     \
-        " line " << __LINE__ << "; "<< __VA_ARGS__  <<  "\n"            \
+        " line " << __LINE__ << "; "<< __VA_ARGS__  <<  "\n"    \
     ); } while (false)
 
 
