@@ -129,6 +129,7 @@ bool TetrisWindow::validLeftMove(){
                     validMove = false;
                     DEBUG("block False");
                 }
+                // TODO: check static blocks
             }
 
         }
@@ -140,21 +141,22 @@ bool TetrisWindow::validLeftMove(){
 bool TetrisWindow::validRightMove(){
     int size = currentTetromino.getMatrixSize();
 
-    for (int x = size - 1; x >=0; x--){
-        for (int y = 0; y < size; y++){
-            DEBUG("checking left: x: " << x << " y: " << y);
-            if (currentTetromino.blockExist(x,y)){
-                DEBUG("found col: x: "<< x << " y:" << y);
-                // check outside map
-                if (currentTetromino.getPosition().x + (map.cellSize * (x + 2)) > map.origo.x + (map.cellSize * rows)){   
-                    return false;
-                }
-                // TODO: check blockMatrix
+    bool validMove = true;
 
+    for (int x = 0; x < size; x++){
+        for (int y = 0; y < size; y++){
+            if (currentTetromino.blockExist(x,y)){
+                DEBUG("checking block :" << x << ", " << y);
+                if (currentTetromino.getPosition().x + (x * map.cellSize) > map.origo.x + (map.cellSize * (rows + 1))){
+                    validMove = false;
+                    DEBUG("block False");
+                }
+                // TODO: check static blocks
             }
+
         }
     }
-    return true;
+    return validMove;
 }
 
 bool TetrisWindow::validDownMove(){
